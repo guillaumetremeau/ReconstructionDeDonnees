@@ -22,21 +22,41 @@ import weka.core.Instances;
 import weka.core.converters.CSVLoader;
 
 /**
- *
+ * classe de l'éxecution du programme principale de reconstruction de données
  * @author koueya
  */
 public class ImageInpaint {
 
+    /**
+     * data folder path (CSV)
+     */
     String dataPath = "data";
+    /**
+     * image source folder path
+     */
     String imagePath = "graphics";
-    private final int radius1 = 10;
-    private final int radius2 = 20;
-    private final int radius3 = 35 ;
+    /**
+     * Indicateurs de centralité (rayon)
+     */
+    private final int radius1 = 10, radius2 = 20, radius3 = 35;
+    /**
+     * Nombre d'élément minimal ??
+     */
     private final int minElementR1 = 2, minElementR2 = 5, minElementR3 = 10;
+    /**
+     * Pourcentage de bruitage des images
+     */
     private final double[] percents = {0.3,0.4,0.5,0.6,0.7};
+    /**
+     * ??
+     */
     private final int[] pieces = {4,9,16};
 
-
+/**
+ * Constructeur du programme de reconstruction de données
+ * @param PathName dossier source contenant les images
+ * @param regFunction Indique la règle à utiliser
+ */
 public ImageInpaint(String PathName,String regFunction) {
 
         File path = new File(PathName);
@@ -61,6 +81,12 @@ public ImageInpaint(String PathName,String regFunction) {
 
     }
 
+/**
+ * Constructeur du programme de reconstruction de données avec indication de version des programmes
+ * @param PathName dossier source contenant les images
+ * @param regFunction Indique la règle à utiliser
+ * @param border True : version 2 des programmes, false : version 1
+ */
 public ImageInpaint(String PathName,String regFunction, boolean border) {
 
         File path = new File(PathName);
@@ -97,7 +123,15 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
         });
 
     }
-    /////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * Vérifie la concordance entre la position des pixel manquant généré et le fichier .csv associé ??
+     * @param fileName Nom du fichier
+     * @param path Chemin du fichier
+     * @return Booléen (vrai ou faux)
+     * @throws IOException
+     * @throws Exception 
+     */
     public boolean testwithRvalues(String fileName, String path) throws IOException, Exception {
 
         boolean response = true;
@@ -129,6 +163,15 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Vérifie la concordance entre la position des pixel manquant généré et le fichier .csv associé sur un ensemble de morceau d'image ??
+     * @param fileName Nom du fichier
+     * @param path Chemin du fichier
+     * @param nbpiece Nombre de morceau d'image
+     * @return Booléen (vrai ou faux)
+     * @throws IOException
+     * @throws Exception 
+     */
     public boolean testwithRvaluesMoceau(String fileName, String path, int nbpiece) throws IOException, Exception {
 
         boolean response = true;
@@ -174,7 +217,14 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
     }
 
  
-    ////------------------------Test  ------------------------------------------------------ 
+    ////------------------------Test  ------------------------------------------------------
+    /**
+     * Evaluation avec RF
+     * @param fileName Nom du fichier à évaluer
+     * @param path Chemin du fichier
+     * @throws IOException
+     * @throws Exception 
+     */
     public void RF(String fileName, String path) throws IOException, Exception {
 
         IImage image = new IImage(fileName, path);
@@ -241,6 +291,13 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
 
     
        ////------------------------Test  ------------------------------------------------------ 
+    /**
+     * Evaluation avec RF2
+     * @param fileName Nom du fichier à évaluer
+     * @param path Chemin du fichier
+     * @throws IOException
+     * @throws Exception 
+     */
     public void RF2(String fileName, String path) throws IOException, Exception {
 
         IImage image = new IImage(fileName, path);
@@ -316,6 +373,13 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
     
     
           ////------------------------Test  ------------------------------------------------------ 
+    /**
+     * Evaluation avec SVM2
+     * @param fileName Nom du fichier à évaluer
+     * @param path Chemin du fichier
+     * @throws IOException
+     * @throws Exception 
+     */
     public void SVM2(String fileName, String path) throws IOException, Exception {
 
         IImage image = new IImage(fileName, path);
@@ -385,8 +449,14 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
     }
 
     
-    
-        public void CART2(String fileName, String path) throws IOException, Exception {
+    /**
+     * Evaluation avec CART2
+     * @param fileName Nom du fichier à évaluer
+     * @param path Chemin du fichier
+     * @throws IOException
+     * @throws Exception 
+     */
+    public void CART2(String fileName, String path) throws IOException, Exception {
 
         IImage image = new IImage(fileName, path);
         String debug = " CART2;" + fileName + "  ";
@@ -457,6 +527,13 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
    
     
     ////------------------------Test  ------------------------------------------------------ 
+    /**
+     * Evaluation avec SVM
+     * @param fileName Nom du fichier à évaluer
+     * @param path Chemin du fichier
+     * @throws IOException
+     * @throws Exception 
+     */
     public void SVM(String fileName, String path) throws IOException, Exception {
 
         IImage image = new IImage(fileName, path);
@@ -523,6 +600,13 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
     
     
     ////------------------------Test  ------------------------------------------------------ 
+    /**
+     * Evaluation avec Une régression linéaire
+     * @param fileName Nom du fichier à évaluer
+     * @param path Chemin du fichier
+     * @throws IOException
+     * @throws Exception 
+     */
     public void LinearRegression(String fileName, String path) throws IOException, Exception {
 
         IImage image = new IImage(fileName, path);
@@ -586,6 +670,14 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
         writer.write(debug);
         writer.close();
     }
+    
+    /**
+     * Evaluation avec RT
+     * @param fileName Nom du fichier à évaluer
+     * @param path Chemin du fichier
+     * @throws IOException
+     * @throws Exception 
+     */
     public void RT(String fileName, String path) throws IOException, Exception {
 
         IImage image = new IImage(fileName, path);
@@ -650,8 +742,14 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
         writer.close();
     }
     
-
- public void CART(String fileName, String path) throws IOException, Exception {
+    /**
+     * Evaluation avec CART
+     * @param fileName Nom du fichier à évaluer
+     * @param path Chemin du fichier
+     * @throws IOException
+     * @throws Exception 
+     */
+    public void CART(String fileName, String path) throws IOException, Exception {
 
         IImage image = new IImage(fileName, path);
         String debug = " CART;" + fileName + "  ";
@@ -717,6 +815,13 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
    
 /////////////////////////////////////////////////////////////////////////////////////////////////
     ////------------------------Test  ------------------------------------------------------ 
+    /**
+     * Test Les résultats d'un traitement d'image ??
+     * @param fileName Nom du fichier à tester
+     * @param path Chemin du fichier à tester
+     * @throws IOException
+     * @throws Exception 
+     */
     public void TestValue(String fileName, String path) throws IOException, Exception {
         //System.out.println(Utils.default_dataPath + "" + fileName + ".jpg");
         int[][] matrixImage = Utils.LoadImage(fileName, path);
@@ -777,6 +882,18 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
 
 ///////////////////////////////////////////////////////////////////////////////
 /////////Oesooo
+    /**
+     * Comparaison de l'image original et de l'image bruitée??
+     * @param fileName Nom du fichier
+     * @param img Matrice de niveau de gris de l'image non bruitée
+     * @param imgBruitee Matrice de niveau de gris de l'image bruitée
+     * @param percent Pourcentage de bruitage de l'image
+     * @param nbpiece Nombre de morceaux de l'image
+     * @param idpiece ??
+     * @return Map
+     * @throws IOException
+     * @throws Exception 
+     */
     public Map ExecuteValue(String fileName, int[][] img, int[][] imgBruitee, int percent, int nbpiece, int idpiece) throws IOException, Exception {
         double[][] regressionData = Utils.createVariables(imgBruitee, radius1, radius2, radius3, minElementR1, minElementR2, minElementR2);
         //int ;
@@ -823,7 +940,13 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
         map.put("img", img);
         return map;
     }
-
+    
+    /**
+     * Récupère le bruit d'une image depuis un fichier CSV
+     * @param FileName nom du fichier CSV
+     * @return Liste (ArrayList) de pixel (double[]) 
+     * @throws FileNotFoundException 
+     */
     public ArrayList<double[]> getBruitFromCsv(String FileName) throws FileNotFoundException {
 
         ArrayList<String[]> elementsF = CSVUtils.CSVReader(FileName);
@@ -847,14 +970,36 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
         return positionList;
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+    /**
+     * Sauvegarde la prediction de données
+     * @param matrixImageCopy Copie de la matrice de l'image
+     * @param testData Données de test
+     * @param eval Evaluation à sauvegarder
+     * @param fileName Nom du fichier
+     * @param rfunction 
+     * @param percent Pourcentage de bruitage
+     * @param nbpiece Nombre de morceaux de l'image
+     * @param numpiece Numéro de morceau
+     * @return 
+     */
     public int[][] SavePrediction(int[][] matrixImageCopy, double[][] testData, Evaluation eval, String fileName, String rfunction, int percent, int nbpiece, int numpiece) {
 
         rfunction = rfunction + "_" + nbpiece + "_" + numpiece;
         return this.SavePrediction(matrixImageCopy, testData, eval, fileName, rfunction, percent);
     }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
+    /**
+     * Sauvegarde la prédiction
+     * @param matrixImageCopy Copie de la matrice de l'image
+     * @param testData Données de test
+     * @param eval Evaluation à sauvegarder
+     * @param fileName Nom du fichier
+     * @param rfunction
+     * @param percent Pourcentage de bruitage
+     * @return 
+     */
     public int[][] SavePrediction(int[][] matrixImageCopy, double[][] testData, Evaluation eval, String fileName, String rfunction, int percent) {
 
         ArrayList<Prediction> Result = eval.predictions();
@@ -877,6 +1022,17 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
     
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///Learning 
+    /**
+     * ??
+     * @param fileName Nom du fichier
+     * @param percent Porcentage de bruitage
+     * @param nbpiece Nombre de morceaux de l'image
+     * @param idpiece Numéro du morceau de l'image
+     * @return un évaluation
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws Exception 
+     */
     public Evaluation wekaFunction(String fileName, int percent, int nbpiece, int idpiece) throws FileNotFoundException, IOException, Exception {
 
         String sTraining = nbpiece == 0 ? "training" : "training_" + nbpiece + "_" + idpiece;
@@ -904,10 +1060,14 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
         return eval;
     }
 
+    /**
+     * Fonction principale du programme - Création d'une nouvelle image
+     * @param args 1er argument : chemin du dossier de l'image source; 2nd argument : choix de règle
+     */
     public static void main(String[] args) {
 
         String pathName = "rimages/";
-        String regFunction="RF";
+        String regFunction="SVM";
         if (args.length != 0) {
             pathName = args[0];
             if(args.length>0) regFunction=args[1];
