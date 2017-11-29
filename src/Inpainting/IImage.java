@@ -20,39 +20,76 @@ import static utils.Utils.wmean;
 //import static utils.Utils.default_dataPath;
 
 /**
- *
+ * classe représentant une image
  * @author koueya
  */
 public class IImage {
 
+    /**
+     * Nombre de ligne dans l'image
+     */
     private int nbrow;
+    /**
+     * Nombre de colonnes dans l'image
+     */
     private int nbcol;
+    /**
+     * Buffer de l'image
+     */
     BufferedImage img;
+    /**
+     * Matrice de l'image, indique le niveau de gris d'un pixel
+     */
     private int[][] pixelMatrix;
+    /**
+     * Nom du fichier
+     */
     private String fileName;
 
+    /**
+     * Copie originale de l'image
+     */
     private IImage OriginalImageCopie;
 
-    //Chargement d'une image à partir d'un fichier
+    /**
+     * Chargement d'une image à partir d'un fichier
+     * @param fileName nom du fichier source
+     * @throws IOException 
+     */
     public void LoadImage(String fileName) throws IOException {
         LoadImage(fileName, Utils.default_dataPath);
     }
 
+    /**
+     * Constructeur par défaut d'une image
+     */
     public IImage() {
 
     }
 
+    /**
+     * Constructeur depuis un fichier
+     * @param fileName Nom du fichier source
+     * @param dataPath Chemin du fichier
+     * @throws IOException
+     */
     public IImage(String fileName, String dataPath) throws IOException {
         this.LoadImage(fileName, dataPath);
     }
 
+    /**
+     * Constructeur depuis un fichier source
+     * @param fileName nom du fichier source
+     * @throws IOException 
+     */
     public IImage(String fileName) throws IOException {
         this.LoadImage(fileName);
     }
-/**
- * 
- * @param matrixPixel 
- */
+    
+    /**
+     * Constructeur à partir d'une matrice de pixel
+     * @param matrixPixel matrice de pixel (niveau de gris)
+     */
     public IImage(int[][] matrixPixel) {
 
         if (matrixPixel.length > 0) {
@@ -79,6 +116,10 @@ public class IImage {
 
     }
 
+    /**
+     * Constructeur à partir d'un buffer d'image (BufferedImage
+     * @param img Buffer de l'image
+     */
     public IImage(BufferedImage img) {
         this.img = Utils.deepImageCopy(img);
         this.pixelMatrix = this.asMatrix();
@@ -87,51 +128,91 @@ public class IImage {
 
     }
 
+    /**
+     * Accesseur de nbrow
+     * @return nombre de lignes de l'images
+     */
     public int getNbrow() {
         return nbrow;
     }
 
+    /**
+     * Mutateur de nbrow
+     * @param nbrow nombre de ligne de l'image
+     */
     public void setNbrow(int nbrow) {
         this.nbrow = nbrow;
     }
 
+    /**
+     * Accesseur de nbcol
+     * @return Nombre de colonnes de l'image
+     */
     public int getNbcol() {
         return nbcol;
     }
 
+    /**
+     * Mutateur de nbcol
+     * @param nbcol Nombre de colonnes de l'image
+     */
     public void setNbcol(int nbcol) {
         this.nbcol = nbcol;
     }
 
+    /**
+     * Accesseur de img
+     * @return Le buffer de l'image (BufferdImage)
+     */
     public BufferedImage getImg() {
         return img;
     }
 
+    /**
+     * Mutateur de img
+     * @param img Le buffer de l'image (BufferedImage)
+     */
     public void setImg(BufferedImage img) {
         this.img = img;
     }
 
+    /**
+     * Accesseur de pixelMatrix
+     * @return La matrice des pixels en niveau de gris
+     */
     public int[][] getPixelMatrix() {
         return pixelMatrix;
     }
 
+    /**
+     * Mutateur de pixelMatrix
+     * @param pixelMatrix La matrice des pixel en niveau de gris
+     */
     public void setPixelMatrix(int[][] pixelMatrix) {
         this.pixelMatrix = pixelMatrix;
     }
 
+    /**
+     * Accesseur de OriginalImageCopie
+     * @return La copie originale de l'image
+     */
     public IImage getOriginalImageCopie() {
         return OriginalImageCopie;
     }
 
+    /**
+     * Mutateur de OriginalImageCopie
+     * @param OriginalImageCopie La copie originale de l'image
+     */
     public void setOriginalImageCopie(IImage OriginalImageCopie) {
         this.OriginalImageCopie = OriginalImageCopie;
     }
 
     /**
-     * Chargement d'une image à partir d'un fichier
-     *
+     * Charement d'une image à partir d'un fichier
      * @param fileName nom du fichier à charger
-     * @param nom du repertoire
+     * @param dataPath Chemin du fichier
+     * @throws IOException 
      */
     public void LoadImage(String fileName, String dataPath) throws IOException {
         this.img = ImageIO.read(new File(dataPath + "/" + fileName + ".jpg"));
@@ -141,16 +222,16 @@ public class IImage {
         this.nbcol = img.getWidth();
         //  return asMatrix(img);
     }
- /***
-  *  retourne l'image sous forme de matrix
-  * @return 
-  */
+    /**
+     * Traduit le buffer de l'image en matrice
+     * @return Matrice de pixel en niveau de gris
+     */
     private int[][] asMatrix() {
 
         int w = img.getWidth();
         int h = img.getHeight();
         int matriximage[][] = new int[h][w];
-// Safe cast as img is of type TYPE_BYTE_GRAY 
+        // Safe cast as img is of type TYPE_BYTE_GRAY 
         WritableRaster wr = img.getRaster();
         for (int y = 0; y < h; y++) {
             for (int x = 0; x < w; x++) {
@@ -161,11 +242,10 @@ public class IImage {
         return matriximage;
 
     }
-  /**
-   * Generation des bruits dans l'image
-   * @param percent pourcentage de pixel manquant
-   */
-
+    /**
+     * Generation des bruits dans l'image selon une loi continue
+     * @param percent pourcentage de pixel manquant
+     */
     public void GenerateBruit(double percent) {
 
         //On garde 
@@ -187,11 +267,11 @@ public class IImage {
         }
 
     }
+    
     /**
-   * Generation des bruits dans l'image
-   * @param percent pourcentage de pixel manquant
-   */
-
+     * Generation des bruits dans l'image selon un loi Gaussienne
+     * @param percent pourcentage de pixel manquant
+     */
     public void GenerateBruitGaussian(double percent) {
 
         //On garde 
@@ -252,17 +332,13 @@ public class IImage {
         }
 
     }
-/**
- * 
- * @param img
- * @param vecteur
- * @return 
- */
-    public  int[][] GenerateBruit( int []vecteur) {      
-     
-     
- 
-   
+    /**
+     * Génération du bruit selon un vecteur ??
+     * @param vecteur Vecteur de génération du bruit
+     * @return ??
+     */
+    public  int[][] GenerateBruit( int []vecteur) {   
+        
         int j=0;
         for(int i: vecteur){
         
@@ -280,14 +356,13 @@ public class IImage {
             //System.out.println(" NB_J"+i);
         
         }
-     return pixelMatrix;
-  }
+        return pixelMatrix;
+    }
   
     
-        /**
-     * 
+    /**
+     * Génération de bruit en fonction des coordonnées des pixels manquants
      * @param CoodinateL list of position of missing value 
-     * @return 
      */
     public void GenerateBruit( ArrayList<double[]> CoodinateL) {      
      
@@ -306,11 +381,11 @@ public class IImage {
            }
         }   
    }
+    
     /**
- * 
- * @param fileName  nom du fichier ou sauvegade l'image
- */
-    ///Sauvegarde l'image dans le fichier
+     * Sauvegarde l'image dans le fichier
+     * @param fileName nom du ficher où sauvegarder l'image
+     */
     public void SaveImage(String fileName) {
         // BufferedImage image2 = new BufferedImage(this.nbcol, nbrow, BufferedImage.TYPE_BYTE_GRAY);
         try {
@@ -325,9 +400,9 @@ public class IImage {
     }
 
     /**
-     * Slice image.
-     *
-     * @param nbpiece nombre morceaux total
+     * Coupe l'image en autres plus petites
+     * @param nbpiece nombre de morceaux d'image total
+     * @return Un ensemble d'image (ArrayList)
      */
     public ArrayList<IImage> sliceImage(int nbpiece) {
 
@@ -335,12 +410,11 @@ public class IImage {
 
         return sliceImage(nbpiece_per_row, nbpiece_per_row);
     }
-
-    
-        /**
-     * Slice image.
-     *
+    /**
+     * Coupe l'image en autres plus petites selon une position
      * @param nbpiece nombre morceaux total
+     * @param position Position de la coupe
+     * @return Un ensemble d'image (ArrayList)
      */
     public ArrayList<IImage> sliceImage(int nbpiece, Map position) {
 
@@ -349,12 +423,12 @@ public class IImage {
         return sliceImage(nbpiece_per_row, nbpiece_per_row,position);
     }
     
-    
     /**
-     * Slice image.
-     *
-     * @param nb_r number of image per row
-     * @param nb_c number of image per column
+     * Coupe l'image en autres plus petites selon une position et un nombre d'image par lignes et colonnes
+     * @param nb_r Nombre d'image par lignes
+     * @param nb_c Nombre d'images par colonnes
+     * @param position Position de la coupe
+     * @return Un ensemble d'image (ArrayList)
      */
     public ArrayList<IImage> sliceImage(int nb_r, int nb_c,Map position) {
 
@@ -415,10 +489,10 @@ public class IImage {
     }
 
     /**
-     * Slice image.
-     *
-     * @param nb_r number of image per row
-     * @param nb_c number of image per column
+     * Coupe l'image en autres plus petites selon un nombre d'image par ligne et colonne
+     * @param nb_r Nombre d'image par lignes
+     * @param nb_c Nombre d'images par colonnes
+     * @return Un ensemble d'image (ArrayList)
      */
     public ArrayList<IImage> sliceImage(int nb_r, int nb_c) {
 
@@ -475,9 +549,8 @@ public class IImage {
 
     /**
      * Recoller les morceau de l'image
-     *
-     * @param liste_morceau Liste des porceaux de l'images
-     * @param nbpiece nombre de mec
+     * @param liste_morceau Liste des morceaux de l'images
+     * @return Une image (IImage)
      */
     public IImage RecollerMorceau(ArrayList<IImage> liste_morceau) {
 
