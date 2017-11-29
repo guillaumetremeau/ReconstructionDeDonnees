@@ -22,10 +22,11 @@
 hs_err_pid*
 
 /graphics/*
+/rimages/*
+/data/*
 
 # NetBeans specific #
 /nbproject/private/*
-/nbproject/project.properties
 /build/*
 /nbbuild/*
 /dist/*
