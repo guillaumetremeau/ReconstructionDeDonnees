@@ -46,7 +46,7 @@ public class ImageInpaint {
     /**
      * Pourcentage de bruitage des images
      */
-    private final double[] percents = {0.3,0.4,0.5,0.6,0.7};
+    private final double[] percents = {/*0.3,0.4,0.5,0.6,*/0.7};
     /**
      * ??
      */
@@ -322,10 +322,10 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             // CSVUtils.writecsv(regressionData, "back_white-"+ percent+".csv");
 
             debug += " MAE_global;" + eval.meanAbsoluteError() + " ;RMSE_global;" + eval.rootMeanSquaredError() + "  ";
-      
+          IImage imageEstimee= new IImage((int[][]) map.get("img"));
             // System.out.println(eval.toSummaryString());
             ArrayList statList = new ArrayList();
-            for (int piece : pieces) {
+          /*  for (int piece : pieces) {
 
                 debug += " ;piece;" + piece + "  ";
                 ArrayList<IImage> BimageList = imagecopie.sliceImage(piece);
@@ -358,9 +358,9 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
                // debug += "\n";                         //System.out.println(debug);
                 imageFinale.SaveImage(Utils.default_imagePath + "/" + fileName + "_" + percent2 + "_rf2_" + piece + ".jpg");
 
-            }
+            }*/
             //mr.put("statList", statList);
-
+        imageEstimee.SaveImage(Utils.default_imagePath + "/" + fileName + "_" + percent2 + "_rf2_.jpg");
             debug += "\n";
         }
      
@@ -1067,7 +1067,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
     public static void main(String[] args) {
 
         String pathName = "rimages/";
-        String regFunction="SVM";
+        String regFunction="RF2";
         if (args.length != 0) {
             pathName = args[0];
             if(args.length>0) regFunction=args[1];
