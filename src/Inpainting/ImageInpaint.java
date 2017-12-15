@@ -308,6 +308,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             IImage imagecopie = new IImage(image.img);           
             
              imagecopie.GenerateBruit(percent);
+             //imagecopie.GenerateBruitHistProp(percent, 10);
              
             int percent2 = (int) (percent * 100);
 

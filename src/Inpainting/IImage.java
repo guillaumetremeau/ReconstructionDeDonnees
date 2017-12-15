@@ -5,9 +5,11 @@ import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
+import java.util.Map.Entry;
 import java.util.stream.IntStream;
 import javax.imageio.ImageIO;
 import utils.Utils;
@@ -266,6 +268,51 @@ public class IImage {
             this.img.setRGB(col, row, new Color(255, 255, 255).getRGB());
         }
 
+    }
+    
+    public ArrayList GenerateHisto(){
+        ArrayList<ArrayList> histo = new ArrayList<>();
+        for(int i = 0; i < 256; i++){
+            ArrayList e = new ArrayList();
+            histo.add(e);
+        }
+        for(int i = 0; i <this.nbrow; i++){
+            for(int j = 0; j < this.nbcol; j++){
+                int p[] = {i,j};
+                histo.get(this.pixelMatrix[i][j]).add(p);
+            }
+        }
+        return histo;
+    }
+    
+    public void GenerateBruitHistProp(double percent, int nbSepar){
+        OriginalImageCopie = new IImage(img);
+        Double nbMissingBySepar = percent *this.nbrow * this.nbcol / nbSepar;
+        int range = 255 / nbSepar;
+        
+        //ArrayList listSepar = new ArrayList();
+        
+        ArrayList<ArrayList<int[]>> histo = GenerateHisto();
+        
+        for(int i = 0; i < nbSepar ; i++){//Parcours des groupes
+            int count = 0;
+            for(int j = range*i ; j < range*i + range; j++){
+                count += histo.get(j).size();
+            }
+            int number[] = generateRange(nbMissingBySepar.intValue(), 0, count);
+            for (int k : number){
+                int l = 0; int cpt = 0;
+                while(cpt+histo.get(l).size() < k){
+                    cpt += histo.get(l).size();
+                    l++;
+                }
+                int p[];
+                p = histo.get(l).get(k-cpt);
+                this.pixelMatrix[p[0]][p[1]] = -1;
+                this.img.setRGB(p[0], p[1], new Color(255, 255, 255).getRGB());
+            }
+        }
+        
     }
     
     /**
