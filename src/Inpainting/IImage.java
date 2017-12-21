@@ -299,17 +299,20 @@ public class IImage {
             for(int j = range*i ; j < range*i + range; j++){
                 count += histo.get(j).size();
             }
-            int number[] = generateRange(nbMissingBySepar.intValue(), 0, count);
+            nbMissingBySepar = percent * count;
+            int number[] = generateRange(nbMissingBySepar.intValue(), 0, count-1);
             for (int k : number){
                 int l = 0; int cpt = 0;
-                while(cpt+histo.get(l).size() < k){
-                    cpt += histo.get(l).size();
+                while(cpt+histo.get(l).size()-1 < k){
+                    cpt += histo.get(l).size()-1;
                     l++;
                 }
                 int p[];
                 p = histo.get(l).get(k-cpt);
-                this.pixelMatrix[p[0]][p[1]] = -1;
-                this.img.setRGB(p[0], p[1], new Color(255, 255, 255).getRGB());
+                int row = p[0];
+                int col = p[1];
+                this.pixelMatrix[row][col] = -1;
+                this.img.setRGB(col, row, new Color(255, 255, 255).getRGB());
             }
         }
         
