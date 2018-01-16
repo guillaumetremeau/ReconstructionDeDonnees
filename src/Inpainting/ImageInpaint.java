@@ -338,9 +338,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             debug += "\n";
         }
      
-        FileWriter writer = new FileWriter(fileName + ".txt",true);
-        writer.write(debug);
-        writer.close();
+        SaveDataFile(fileName, debug);
     }
 
     
@@ -419,9 +417,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             debug += "\n";
         }
      
-        FileWriter writer = new FileWriter(fileName + ".txt",true);
-        writer.write(debug);
-        writer.close();
+        SaveDataFile(fileName, debug);
     }
 
     
@@ -498,9 +494,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             debug += "\n";
         }
      
-        FileWriter writer = new FileWriter(fileName + ".txt",true);
-        writer.write(debug);
-        writer.close();
+        SaveDataFile(fileName, debug);
     }
 
     
@@ -574,9 +568,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             debug += "\n";
         }
      
-        FileWriter writer = new FileWriter(fileName + ".txt",true);
-        writer.write(debug);
-        writer.close();
+        SaveDataFile(fileName, debug);
     }
 
    
@@ -648,9 +640,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             debug += "\n";
         }
      
-        FileWriter writer = new FileWriter(fileName + ".txt",true);
-        writer.write(debug);
-        writer.close();
+        SaveDataFile(fileName, debug);
     }
     
     
@@ -721,9 +711,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             debug += "\n";
         }
      
-        FileWriter writer = new FileWriter(fileName + ".txt",true);
-        writer.write(debug);
-        writer.close();
+        SaveDataFile(fileName, debug);
     }
     
     /**
@@ -792,9 +780,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             debug += "\n";
         }
      
-        FileWriter writer = new FileWriter(fileName + ".txt",true);
-        writer.write(debug);
-        writer.close();
+        SaveDataFile(fileName, debug);
     }
     
     /**
