@@ -31,10 +31,15 @@ public class ImageInpaint {
      * data folder path (CSV)
      */
     String dataPath = "data";
+    String imageInputPath = "rimages/";
+    String seed = "";
+    String typeGen = "";
+    String modeleSolveur = "RF2";
+    String modeTirageBruit = "";
     /**
      * image source folder path
      */
-    String imagePath = "graphics";
+    String imageOutputPath = "graphics";
     /**
      * Indicateurs de centralité (rayon)
      */
@@ -44,9 +49,13 @@ public class ImageInpaint {
      */
     private final int minElementR1 = 2, minElementR2 = 5, minElementR3 = 10;
     /**
-     * Pourcentage de bruitage des images
+     * Pourcentages de bruitage des images
      */
-    private final double[] percents = {/*0.3,0.4,0.5,0.6,*/0.7};
+    private double[] percents = {/*0.3,0.4,0.5,0.6,*/0.7};
+    /**
+     * Pourcentage de bruitage
+     */
+    private double percent = 0.7;
     /**
      * ??
      */
@@ -122,6 +131,51 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
 
         });
 
+    }
+
+    /**
+     * Constructeur with full parameters
+     * @param imageInputFolderPath
+     * @param imageOutputFolderPath
+     * @param dataFolderPath
+     * @param percent
+     * @param seed
+     * @param typeGen
+     * @param ModeleResolveur
+     * @param ModeTirageBruit 
+     */
+    public ImageInpaint(String imageInputFolderPath, String imageOutputFolderPath,
+            String dataFolderPath, double percent, String seed, String typeGen,
+            String ModeleResolveur, String ModeTirageBruit) {
+        
+        this.dataPath = dataFolderPath;
+        this.imageInputPath = imageInputFolderPath;
+        this.imageOutputPath = imageOutputFolderPath;
+        this.seed = seed;
+        this.percent = percent;
+        this.typeGen = typeGen;
+        this.modeleSolveur = ModeleResolveur;
+        this.modeTirageBruit = ModeTirageBruit;
+        
+        File path = new File(imageInputFolderPath);
+        ArrayList fileList = Utils.listerRepertoire(path);
+
+        IntStream.range(0, fileList.size()).parallel().forEach(i -> {
+            try {
+               
+                 switch(ModeleResolveur){
+                     case "SVM": this.SVM2((String) fileList.get(i), imageInputFolderPath); break;
+                     case "MR": this.LinearRegression((String) fileList.get(i), imageInputFolderPath); break;
+                     case "CART": this.CART2((String) fileList.get(i), imageInputFolderPath); break;
+                     case "RT": this.RT((String) fileList.get(i), imageInputFolderPath); break;                     
+                     default: this.RF2((String) fileList.get(i), imageInputFolderPath);
+              }
+               // testwithRvaluesMoceau((String) fileList.get(i), PathName,4);
+            } catch (Exception exe) {
+                Logger.getLogger(ImageInpaint.class.getName()).log(Level.SEVERE, null, exe);
+            }
+
+        });
     }
     
     /**
@@ -1063,17 +1117,39 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
 
     /**
      * Fonction principale du programme - Création d'une nouvelle image
-     * @param args 1er argument : chemin du dossier de l'image source; 2nd argument : choix de règle
+     * @param args [imageInputFolderPath] [imageOutputFolderPath] [dataFolderPath] 
+     * [%] [seed] [typeGen] [ModeleResolveur] [ModeTirageBruit] 
      */
     public static void main(String[] args) {
 
-        String pathName = "rimages/";
-        String regFunction="RF2";
-        if (args.length != 0) {
-            pathName = args[0];
-            if(args.length>0) regFunction=args[1];
+        String imageInputFolderPath = "rimages/";
+        String imageOutputFolderPath = "graphics";
+        String dataFolderPath = "data";
+        double percent = 0.7;
+        String seed = "";
+        String typeGen = "";
+        String ModeleResolveur="RF2";
+        String ModeTirageBruit="";
+        
+        switch(args.length){
+            case 8: ModeTirageBruit = args[7];
+            case 7: ModeleResolveur = args[6];
+            case 6: typeGen = args[5];
+            case 5: seed = args[4];
+            case 4: 
+                try{
+                    percent= Double.parseDouble(args[3]);
+                }catch (NumberFormatException e){
+                    System.err.println("Argument " + args[3] + " must be a double.");
+                    System.exit(1);
+                }
+            case 3: dataFolderPath = args[2];
+            case 2: imageOutputFolderPath = args[1];
+            case 1: imageInputFolderPath = args[0];break;
         }
-        new ImageInpaint(pathName,regFunction);
+        
+        new ImageInpaint(imageInputFolderPath,imageOutputFolderPath,dataFolderPath,
+                percent,seed,typeGen,ModeleResolveur,ModeTirageBruit);
 
     }
 
