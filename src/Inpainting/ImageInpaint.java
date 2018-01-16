@@ -863,9 +863,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             debug += "\n";
         }
      
-        FileWriter writer = new FileWriter(fileName + ".txt",true);
-        writer.write(debug);
-        writer.close();
+        SaveDataFile(fileName, debug);
     }
    
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1025,6 +1023,14 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
         return positionList;
     }
 
+    public void SaveDataFile(String fileName, String debug) throws IOException{
+        String params = percent + "_" + seed + "_" + typeGen
+                + "_" + modeleSolveur + "_" + modeTirageBruit;
+        try (FileWriter writer = new FileWriter(fileName + "_" + params + ".txt",true)) {
+            writer.write(debug);
+        }
+    }
+    
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
     /**
      * Sauvegarde la prediction de données
