@@ -160,11 +160,12 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
         //File path = new File(imageInputPath);
         //ArrayList fileList = Utils.listerRepertoire(path);
 
-        System.out.println("File path : " + imageInputPath);
+        //System.out.println("File path : " + imageInputPath);
 
         String filePath = imageInputPath.substring(0,imageInputPath.lastIndexOf(File.separator));
         String fileName = imageInputPath.substring(imageInputPath.lastIndexOf(File.separator)+1);
-        System.out.println("File path : " + filePath);
+        fileName = fileName.substring(0,fileName.lastIndexOf("."));
+        //System.out.println("File path : " + filePath);
 
 
         //IntStream.range(0, fileList.size()).parallel().forEach(i -> {
