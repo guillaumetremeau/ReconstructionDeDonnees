@@ -211,14 +211,14 @@ public class IImage {
     }
 
     /**
-     * Charement d'une image à partir d'un fichier
+     * Chargement d'une image à partir d'un fichier
      * @param fileName nom du fichier à charger
      * @param dataPath Chemin du fichier
      * @throws IOException 
      */
     public void LoadImage(String fileName, String dataPath) throws IOException {
         this.img = ImageIO.read(new File(dataPath + "/" + fileName + ".jpg"));
-        // this.
+        // this.img = 
         this.pixelMatrix = this.asMatrix();
         this.nbrow = img.getHeight();
         this.nbcol = img.getWidth();
