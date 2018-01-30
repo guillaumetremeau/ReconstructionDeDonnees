@@ -291,7 +291,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
 
         IImage image = new IImage(fileName, path);
         String debug = " RF;" + fileName + "  ";
-        for (double percent : percents) {
+        //for (double percent : percents) {
             debug += " ;" + percent + " ; ";
 
             IImage imagecopie = new IImage(image.img);           
@@ -344,7 +344,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             //mr.put("statList", statList);
 
             debug += "\n";
-        }
+        //}
      
         FileWriter writer = new FileWriter(fileName + ".txt",true);
         writer.write(debug);
@@ -364,7 +364,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
 
         IImage image = new IImage(fileName, path);
         String debug = " RF2;" + fileName + "  ";
-        for (double percent : percents) {
+        //for (double percent : percents) {
             debug += " ;" + percent + " ; ";
 
             IImage imagecopie = new IImage(image.img);           
@@ -425,7 +425,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             //mr.put("statList", statList);
         imageEstimee.SaveImage(Utils.default_imagePath + "/" + fileName + "_" + percent2 + "_rf2_.jpg");
             debug += "\n";
-        }
+        //}
      
         FileWriter writer = new FileWriter(fileName + ".txt",true);
         writer.write(debug);
@@ -447,7 +447,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
 
         IImage image = new IImage(fileName, path);
         String debug = " SVM2;" + fileName + "  ";
-        for (double percent : percents) {
+        //for (double percent : percents) {
             debug += " ;" + percent + " ; ";
 
             IImage imagecopie = new IImage(image.img);           
@@ -504,7 +504,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             //mr.put("statList", statList);
 
             debug += "\n";
-        }
+        //}
      
         FileWriter writer = new FileWriter(fileName + ".txt",true);
         writer.write(debug);
@@ -523,7 +523,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
 
         IImage image = new IImage(fileName, path);
         String debug = " CART2;" + fileName + "  ";
-        for (double percent : percents) {
+        //for (double percent : percents) {
             debug += " ;" + percent + " ; ";
 
             IImage imagecopie = new IImage(image.img);           
@@ -580,7 +580,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             //mr.put("statList", statList);
 
             debug += "\n";
-        }
+        //}
      
         FileWriter writer = new FileWriter(fileName + ".txt",true);
         writer.write(debug);
@@ -601,7 +601,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
 
         IImage image = new IImage(fileName, path);
         String debug = " SVM;" + fileName + "  ";
-        for (double percent : percents) {
+        //for (double percent : percents) {
             debug += " ;" + percent + " ; ";
 
             IImage imagecopie = new IImage(image.img);           
@@ -654,7 +654,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             //mr.put("statList", statList);
 
             debug += "\n";
-        }
+        //}
      
         FileWriter writer = new FileWriter(fileName + ".txt",true);
         writer.write(debug);
@@ -674,7 +674,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
 
         IImage image = new IImage(fileName, path);
         String debug = " MR ;" + fileName + "  ";
-        for (double percent : percents) {
+        //for (double percent : percents) {
             debug += " ;" + percent + " ; ";
 
             IImage imagecopie = new IImage(image.img);           
@@ -727,7 +727,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             //mr.put("statList", statList);
 
             debug += "\n";
-        }
+        //}
      
         FileWriter writer = new FileWriter(fileName + ".txt",true);
         writer.write(debug);
@@ -745,7 +745,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
 
         IImage image = new IImage(fileName, path);
         String debug = " RT;" + fileName + "  ";
-        for (double percent : percents) {
+        //for (double percent : percents) {
             debug += " ;" + percent + " ; ";
 
             IImage imagecopie = new IImage(image.img);           
@@ -798,7 +798,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             //mr.put("statList", statList);
 
             debug += "\n";
-        }
+        //}
      
         FileWriter writer = new FileWriter(fileName + ".txt",true);
         writer.write(debug);
@@ -816,7 +816,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
 
         IImage image = new IImage(fileName, path);
         String debug = " CART;" + fileName + "  ";
-        for (double percent : percents) {
+        //for (double percent : percents) {
             debug += " ;" + percent + " ; ";
 
             IImage imagecopie = new IImage(image.img);           
@@ -869,7 +869,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             //mr.put("statList", statList);
 
             debug += "\n";
-        }
+        //}
      
         FileWriter writer = new FileWriter(fileName + ".txt",true);
         writer.write(debug);
