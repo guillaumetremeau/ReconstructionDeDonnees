@@ -301,9 +301,9 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
     public void RF2(String fileName, String path) throws IOException, Exception {
 
         IImage image = new IImage(fileName, path);
-        String debug = " RF2;" + fileName + "  ";
+        String debug = fileName + ";RF2";
         for (double percent : percents) {
-            debug += " ;" + percent + " ; ";
+            debug += ";" + percent + ";";
 
             IImage imagecopie = new IImage(image.img);           
             
@@ -320,8 +320,8 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
 
   
             // CSVUtils.writecsv(regressionData, "back_white-"+ percent+".csv");
-
-            debug += " MAE_global;" + eval.meanAbsoluteError() + " ;RMSE_global;" + eval.rootMeanSquaredError() + "  ";
+            //MAE_global;RMSE_global
+            debug += ";" + eval.meanAbsoluteError() + ";" + eval.rootMeanSquaredError() + "";
           IImage imageEstimee= new IImage((int[][]) map.get("img"));
             // System.out.println(eval.toSummaryString());
             ArrayList statList = new ArrayList();
@@ -364,9 +364,27 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             debug += "\n";
         }
      
-        FileWriter writer = new FileWriter(fileName + ".txt",true);
+        /*FileWriter writer = new FileWriter(fileName + ".txt",true);
         writer.write(debug);
-        writer.close();
+        writer.close();*/
+        
+        BufferedWriter out = null;
+        try  
+        {
+            FileWriter fstream = new FileWriter("out.txt", true); //true tells to append data.
+            out = new BufferedWriter(fstream);
+            out.write(debug);
+        }
+        catch (IOException e)
+        {
+            System.err.println("Error: " + e.getMessage());
+        }
+        finally
+        {
+            if(out != null) {
+                out.close();
+            }
+        }
     }
 
     
