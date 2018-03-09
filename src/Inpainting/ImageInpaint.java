@@ -346,9 +346,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             debug += "\n";
         //}
      
-        FileWriter writer = new FileWriter(fileName + ".txt",true);
-        writer.write(debug);
-        writer.close();
+        SaveDataFile(fileName, debug);
     }
 
     
@@ -363,9 +361,8 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
     public void RF2(String fileName, String path) throws IOException, Exception {
 
         IImage image = new IImage(fileName, path);
-        String debug = " RF2;" + fileName + "  ";
         //for (double percent : percents) {
-            debug += " ;" + percent + " ; ";
+            String debug = " ;" + percent + " ; ";
 
             IImage imagecopie = new IImage(image.img);           
             
@@ -383,8 +380,8 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
 
   
             // CSVUtils.writecsv(regressionData, "back_white-"+ percent+".csv");
-
-            debug += " MAE_global;" + eval.meanAbsoluteError() + " ;RMSE_global;" + eval.rootMeanSquaredError() + "  ";
+            //MAE_global;RMSE_global
+            debug += ";" + eval.meanAbsoluteError() + ";" + eval.rootMeanSquaredError() + "";
           IImage imageEstimee= new IImage((int[][]) map.get("img"));
             // System.out.println(eval.toSummaryString());
             ArrayList statList = new ArrayList();
@@ -427,9 +424,8 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             debug += "\n";
         //}
      
-        FileWriter writer = new FileWriter(fileName + ".txt",true);
-        writer.write(debug);
-        writer.close();
+
+        SaveDataFile(fileName, debug);
     }
 
     
@@ -506,9 +502,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             debug += "\n";
         //}
      
-        FileWriter writer = new FileWriter(fileName + ".txt",true);
-        writer.write(debug);
-        writer.close();
+        SaveDataFile(fileName, debug);
     }
 
     
@@ -582,9 +576,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             debug += "\n";
         //}
      
-        FileWriter writer = new FileWriter(fileName + ".txt",true);
-        writer.write(debug);
-        writer.close();
+        SaveDataFile(fileName, debug);
     }
 
    
@@ -656,9 +648,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             debug += "\n";
         //}
      
-        FileWriter writer = new FileWriter(fileName + ".txt",true);
-        writer.write(debug);
-        writer.close();
+        SaveDataFile(fileName, debug);
     }
     
     
@@ -729,9 +719,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             debug += "\n";
         //}
      
-        FileWriter writer = new FileWriter(fileName + ".txt",true);
-        writer.write(debug);
-        writer.close();
+        SaveDataFile(fileName, debug);
     }
     
     /**
@@ -800,9 +788,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             debug += "\n";
         //}
      
-        FileWriter writer = new FileWriter(fileName + ".txt",true);
-        writer.write(debug);
-        writer.close();
+        SaveDataFile(fileName, debug);
     }
     
     /**
@@ -871,9 +857,7 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
             debug += "\n";
         //}
      
-        FileWriter writer = new FileWriter(fileName + ".txt",true);
-        writer.write(debug);
-        writer.close();
+        SaveDataFile(fileName, debug);
     }
    
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1033,6 +1017,14 @@ public ImageInpaint(String PathName,String regFunction, boolean border) {
         return positionList;
     }
 
+    public void SaveDataFile(String fileName, String debug) throws IOException{
+        String params = percent + "_" + seed + "_" + typeGen
+                + "_" + modeleSolveur + "_" + modeTirageBruit;
+        try (FileWriter writer = new FileWriter("out" + ".txt",true)) {
+            writer.write(debug);
+        }
+    }
+    
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
     /**
      * Sauvegarde la prediction de données
